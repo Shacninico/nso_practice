@@ -1,0 +1,10 @@
+-Create env and change dbname
+composer install
+npm install laravel
+php artisan key:generate
+php artisan migrate:fresh --seed --seeder=DatabaseSeeder
+npm run build
+npm run dev
+
+gitgit config user.name Shacninico
+git config user.email nikkoofo.ob@gmail.com
