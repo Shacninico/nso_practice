@@ -8,3 +8,6 @@ npm run dev
 
 gitgit config user.name Shacninico
 git config user.email nikkoofo.ob@gmail.com
+
+
+php artisan optimize (for route not registered)
