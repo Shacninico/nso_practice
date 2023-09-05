@@ -72,5 +72,11 @@ class AdminController extends Controller
     } //end Method Admin Profile Store
 
 
+    public function adminChangePassword(){
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('admin.admin_change_password', compact('profileData'));
+        
+    }
 
 }
