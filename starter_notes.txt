@@ -11,3 +11,19 @@ git config user.email nikkoofo.ob@gmail.com
 
 
 php artisan optimize (for route not registered)
+
+
+//back up local host Project Codes
+php artisan config:cache
+php artisan cache:clear
+php artisan view:clear
+php artisan optimize
+
+zip whole project
+export database from PHP mydad
+-select if not exist
+-get sql file
+
+composer update
+
+

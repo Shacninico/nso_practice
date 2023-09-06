@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use File;
 
@@ -72,11 +73,40 @@ class AdminController extends Controller
     } //end Method Admin Profile Store
 
 
-    public function adminChangePassword(){
+    public function adminChangePassword()
+    {
         $id = Auth::user()->id;
         $profileData = User::find($id);
         return view('admin.admin_change_password', compact('profileData'));
-        
-    }
 
+    } //end Method Admin Change Password
+
+    public function adminUpdatePassword(Request $request)
+    {
+        //Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed'
+        ]);
+        //Match Old Password
+        if (!Hash::check($request->old_password, auth::user()->password)) {
+            $notification = array(
+                'message' => 'Old Password Does not Match!',
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+
+        //Update New Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        $notification = array(
+            'message' => 'Password Updated Successfuly!',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
+
+    } //end Method Admin Update Password
 }
