@@ -27,3 +27,9 @@ export database from PHP mydad
 composer update
 
 
+//For Seeders
+php artisan db:seed --class=DatabaseSeeder
+php artisan db:seed --class=PhilippineRegionsTableSeeder
+php artisan db:seed --class=PhilippineProvincesTableSeeder
+php artisan db:seed --class=PhilippineCitiesTableSeeder
+php artisan db:seed --class=PhilippineBarangaysTableSeeder
