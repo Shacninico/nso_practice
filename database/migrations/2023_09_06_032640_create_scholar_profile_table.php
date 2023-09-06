@@ -21,11 +21,11 @@ return new class extends Migration {
             $table->string('suffix')->nullable();
             $table->string('sex');
             $table->date('birthday');
-            $table->string('school')->nullable();
-            $table->string('course')->nullable();
-            $table->string('year')->nullable();
             $table->string('email');
             $table->string('contact_number')->nullable();
+            $table->string('school')->nullable();
+            $table->string('course')->nullable();
+            $table->string('year')->nullable();          
             $table->string('lbp')->nullable();
             $table->string('house_num')->nullable();
             $table->string('street')->nullable();
@@ -33,8 +33,11 @@ return new class extends Migration {
             $table->string('barangay');
             $table->string('municipality');
             $table->string('province');
+            $table->string('zipcode');
+            $table->string('district');
+            $table->string('region');
+            $table->string('hsname')->nullable();
             $table->enum('status', ['gs', 'cup', 'c', 'cwp', 'rft', 't', 'g'])->default('gs');
-            $table->string('hs_name')->nullable();
             $table->timestamps();
         });
     }
