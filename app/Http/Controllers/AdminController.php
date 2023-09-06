@@ -109,4 +109,10 @@ class AdminController extends Controller
         return back()->with($notification);
 
     } //end Method Admin Update Password
+
+    public function adminScholars(){
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        return view('admin.scholars', compact('profileData'));
+    }
 }
