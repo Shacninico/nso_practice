@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('Year')->nullable();
             $table->string('email');
             $table->string('contact_number')->nullable();
+            $table->string('lbp')->nullable();
             $table->string('house_num')->nullable();
             $table->string('street')->nullable();
             $table->string('village')->nullable();
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->string('municipality');
             $table->string('province');
             $table->enum('status',['gs','cup','c','cwp','rft', 't'])->default('gs');
+            $table->string('hs_name')->nullable();
             $table->timestamps();
         });
     }
