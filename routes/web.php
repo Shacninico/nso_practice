@@ -39,7 +39,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/profile/store', [AdminController::class, 'adminProfileStore'])->name('admin.profile.store');
     Route::get('/admin/change/password', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
     Route::post('/admin/update/password', [AdminController::class, 'adminUpdatePassword'])->name('admin.update.password');
-    Route::get('/admin/scholars', [AdminController::class, 'adminScholars'])->name('admin.scholars');
+    Route::get('/admin/scholars_profile', [AdminController::class, 'scholarsProfile'])->name('admin.scholars');
+    Route::get('scholars/export', [AdminController::class,'export'])->name('scholars.export');
+    Route::post('scholars/import', [AdminController::class,'import'])->name('scholars.import');
+    Route::get('scholars/delete/all', [AdminController::class,'deleteAll'])->name('scholars.delete.all');
 
 }); //End Group Admin Middleware
 

@@ -3,13 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\ScholarExport;
+use App\Imports\ScholarImports;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\ScholarProfile;
+use Illuminate\View\View;
 use File;
+use DB;
 
 class AdminController extends Controller
 {
+    public function create(): View
+    {
+        return view('admin.admin_login');
+    }
     public function AdminDashboard()
     {
 
@@ -109,10 +119,61 @@ class AdminController extends Controller
         return back()->with($notification);
 
     } //end Method Admin Update Password
+    public function scholarsProfile()
+    {
+        $scholarsProfile = DB::table('scholar_profile')
+            ->select(
+                "scholar_profile.*",
+                DB::raw("CONCAT(scholar_profile.lastname,', ',scholar_profile.firstname,' ',scholar_profile.middlename) AS fullname"),
+                DB::raw("CONCAT(scholar_profile.street,' ',scholar_profile.village,' ',scholar_profile.barangay,', ',scholar_profile.municipality,', ',scholar_profile.province) AS address")
 
-    public function adminScholars(){
-        $id = Auth::user()->id;
-        $profileData = User::find($id);
-        return view('admin.scholars', compact('profileData'));
+            )
+
+            ->get();
+
+        return view('admin.scholars', compact('scholarsProfile'));
     }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function export()
+    {
+        return Excel::download(new ScholarExport, 'scholars_import.xlsx');
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function import()
+    {
+        try {
+
+            Excel::import(new ScholarImports, request()->file('file'));
+            return back();
+
+        } catch (\Exception $e) {
+            $notification = array(
+                'message' => $e->getMessage(),
+                'alert-type' => 'error'
+            );
+            return back()->with($notification);
+        }
+
+        // view(Excel::import(new ScholarProfile,request()->file('file')));
+
+
+    }
+
+
+    public function deleteAll()
+    {
+        DB::table('scholar_profile')->delete();
+        return back();
+    }
+
+
+
+
+
 }

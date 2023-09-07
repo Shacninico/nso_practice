@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('spas_id');
             $table->string('year_of_award');
+            $table->enum('award_type', ['UGRAD', 'JLSS']);
             $table->enum('program', ['MERIT', 'RA 7687', 'RA 10612']);
             $table->string('lastname');
             $table->string('firstname');
