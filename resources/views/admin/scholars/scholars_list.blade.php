@@ -1,14 +1,11 @@
 @extends('admin.admin_dashboard')
 @section('admin')
-    <!-- Plugin css for this page -->
-
-
     <div class="page-content">
 
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.scholars') }}">Main List</a></li>
-                
+
             </ol>
         </nav>
         <div id="row">
@@ -20,7 +17,7 @@
                 <a class="btn btn-warning" href="{{ route('scholars.export') }}">Export Scholar Data</a>
                 <a class="btn btn-error" href="{{ route('scholars.delete.all') }}">Delete All Data</a>
             </form>
-        <hr>          
+            <hr>
         </div>
 
         <div class="row">
@@ -60,15 +57,24 @@
                                             <td>{{ $scho->address }}</td>
                                             <td>{{ $scho->status }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-success btn-icon">
-                                                    <i data-feather="eye"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-primary btn-icon">
-                                                    <i data-feather="edit"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-icon">
-                                                    <i data-feather="trash"></i>
-                                                </button>
+                                                <form action="{{ route('admin.scholar.view', $scho->spas_id) }}"
+                                                    method="POST">
+                                                    <a href="{{ route('admin.scholar.view', ['spas_id' => $scho->spas_id]) }}"
+                                                        type="button" class="btn btn-success btn-icon">
+                                                        <i data-feather="eye"></i>
+                                                    </a>
+                                                    <a href="{{ route('admin.scholar.edit', ['spas_id' => $scho->spas_id]) }}"
+                                                        type="button" class="btn btn-primary btn-icon">
+                                                        <i data-feather="edit"></i>
+                                                    </a>
+
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    
+                                                    <button type="button" class="btn btn-danger btn-icon">
+                                                        <i data-feather="trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
 
                                         </tr>

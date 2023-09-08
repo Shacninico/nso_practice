@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ScholarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
@@ -40,9 +41,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/change/password', [AdminController::class, 'adminChangePassword'])->name('admin.change.password');
     Route::post('/admin/update/password', [AdminController::class, 'adminUpdatePassword'])->name('admin.update.password');
     Route::get('/admin/scholars_profile', [AdminController::class, 'scholarsProfile'])->name('admin.scholars');
-    Route::get('scholars/export', [AdminController::class,'export'])->name('scholars.export');
-    Route::post('scholars/import', [AdminController::class,'import'])->name('scholars.import');
-    Route::get('scholars/delete/all', [AdminController::class,'deleteAll'])->name('scholars.delete.all');
+    Route::get('admin/scholars_profile/{spas_id}', [ScholarController::class, 'viewSchoPage'])->name('admin.scholar.view');
+    Route::get('scholars/export', [ScholarController::class, 'export'])->name('scholars.export');
+    Route::post('scholars/import', [ScholarController::class, 'import'])->name('scholars.import');
+    Route::get('scholars/delete/all', [ScholarController::class, 'deleteAll'])->name('scholars.delete.all');
+    Route::get('admin/scholars/edit', [ScholarController::class, 'editSchoPage'])->name('admin.scholar.edit');
+    Route::get('admin/scholars/delete', [ScholarController::class, 'editSchoPage'])->name('admin.scholar.delete');
 
 }); //End Group Admin Middleware
 
